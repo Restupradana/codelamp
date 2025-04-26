@@ -14,9 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/loginMurid', function () {
+    return view('loginMurid');
+})->name('loginMurid');;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
 });
+
+Route::prefix('murid')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboardMurid');
+    });
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
