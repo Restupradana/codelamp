@@ -26,15 +26,15 @@ Route::get('/', function () {
     return view('homepage');
 });
 
-Route::prefix('murid')->group(function () {
+/* Route::prefix('murid')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboardMurid');
     });
-});
+}); */
 
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboardInstruktur');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
