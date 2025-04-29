@@ -2,7 +2,7 @@
 @section('title', 'Profil')
 @section('content')
 
-<!-- 🔰 Header Profil -->
+<!-- Header Profil -->
 <div class="flex items-center gap-2 mb-4">
     <!-- Ikon Profil -->
     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="#0E1212" fill="none" viewBox="0 0 24 24" stroke-width="2">
@@ -13,8 +13,9 @@
     <span class="text-[18px] text-[#0E1212] font-bold leading-[30px]">Profil</span>
 </div>
 
-<!-- 🧾 Card Utama Profil dengan ukuran sesuai permintaan -->
-<div class="w-[1390px] h-[1195px] bg-white shadow-md p-6 rounded-[5px]">
+<!--  Card Utama Profil dengan ukuran sesuai permintaan -->
+<div class="flex justify-center">
+    <div class="w-[1086px] bg-white shadow-md p-6 rounded-[5px]">
     <!-- Judul Utama -->
     <div class="text-[#0E1212] text-[20px] font-normal leading-[30px] mb-1">
         Profil (Nama Instruktur)
@@ -25,7 +26,7 @@
         DATA DIRI INSTRUKTUR
     </div>
 
-    <!-- 📋 Form Input Data Diri -->
+    <!--  Form Input Data Diri -->
     <div class="space-y-2">
         <!-- Nama Lengkap -->
         <div class="flex items-center space-x-4">
@@ -110,7 +111,7 @@
                   placeholder="Masukkan alamat lengkap"></textarea>
         </div>
 
-        <!-- 📌 Subjudul Data Bank -->
+        <!--  Subjudul Data Bank -->
         <div class="text-[#9197A0] text-[14px] font-normal leading-[24px] mt-8">
             DATA BANK
         </div>
@@ -145,7 +146,7 @@
                    placeholder="Masukkan nomor rekening">
         </div>
 
-        <!-- ✅ Tombol Batal dan Simpan -->
+        <!--  Tombol Batal dan Simpan -->
         <div class="flex justify-end space-x-4 mt-6">
             <!-- Tombol Batal -->
             <button type="button"
@@ -160,5 +161,6 @@
             </button>
         </div>
     </div>
+</div>
 </div>
 @endsection
