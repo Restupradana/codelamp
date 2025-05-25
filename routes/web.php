@@ -18,24 +18,38 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/loginMurid', function () {
-    return view('loginMurid');
-})->name('loginMurid');;
+Route::get('/loginSiswa', function () {
+    return view('loginSiswa');
+})->name('loginSiswa');;
 
 Route::get('/', function () {
     return view('homepage');
 });
 
-Route::prefix('murid')->group(function () {
+Route::prefix('Siswa')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboardMurid');
+        return view('dashboardSiswa');
     });
+    Route::get('/kursus', function () {
+        return view('Siswa/tampilan_kursus');
+    });
+    Route::get('/profil', function () {
+        return view('Siswa/profil');
+    });
+    Route::get('/dibeli', function () {
+        return view('Siswa/kursus_dibeli');
+    });
+    Route::get('/detail_data', function () {
+        return view('Siswa/detail_data');
+    });
+    Route::get('/pembayaran', function () {
+        return view('Siswa/pembayaran');
+});
 });
 
-
-Route::get('/dashboard', function () {
+Route::get('/dashboardSiswa', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboardSiswa');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
