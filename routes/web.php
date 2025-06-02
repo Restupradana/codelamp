@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KursusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +48,9 @@ Route::get('/instruktur_profil', function () {
     return view('instruktur.profil');
 })->name('instruktur.profil');
 
-Route::get('/instruktur_kursus', function () {
-    return view('instruktur.kursus');
-})->name('instruktur.kursus');
-
-Route::get('/instruktur/kursus/tambah', function () {
-    return view('instruktur.kursus.kursus-tambah');
-})->name('instruktur.kursus.tambah');
+Route::get('/instruktur_kursus', [KursusController::class, 'index'])->name('instruktur.kursus');
+Route::get('/instruktur/kursus/tambah', [KursusController::class, 'create'])->name('instruktur.kursus.tambah');
+Route::post('/instruktur/kursus', [KursusController::class, 'store'])->name('instruktur.kursus.store');
 
 Route::get('/instruktur_pembayaran', function () {
     return view('instruktur.pembayaran');
