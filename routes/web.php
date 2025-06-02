@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Route::prefix('murid')->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboardMurid');
+        return view('instruktur.dashboard');
     });
 });
 
