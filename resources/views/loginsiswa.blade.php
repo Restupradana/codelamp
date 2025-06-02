@@ -15,13 +15,9 @@
         <div class="text-center mb-6">
             <h1 class="text-2xl font-bold text-yellow-500 flex items-center justify-center">
                 CodeLamp
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-1" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 2a7 7 0 017 7c0 4-5 9-7 11-2-2-7-7-7-11a7 7 0 017-7zm0 10a3 3 0 100-6 3 3 0 000 6z" />
-                </svg>
+                 <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="w-12 md:w-15 mb-2">
             </h1>
-            <p class="text-sm text-gray-600 mt-1">Masuk sebagai Admin</p>
+            <p class="text-sm text-gray-600 mt-1">Masuk sebagai Siswa</p>
         </div>
 
         <form method="POST" action="{{ route('login') }}">
