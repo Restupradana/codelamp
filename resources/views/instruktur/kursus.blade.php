@@ -32,10 +32,11 @@
                 <div class="text-[#0E1212] text-[14px] font-normal leading-[24px]">
                     Tambahkan konten baru anda di sini
                 </div>
-                <button type="button"
-                    class="w-[150px] h-[40px] bg-[#F5B40D] text-white text-sm rounded-[5px] border border-[#F5B40D] hover:bg-[#e6a900] transition">
+                <a href="{{ route('instruktur.kursus.tambah') }}"
+                    class="inline-block w-[150px] h-[40px] bg-[#F5B40D] text-white text-sm rounded-[5px] border border-[#F5B40D] hover:bg-[#e6a900] transition text-center leading-[40px]">
                     Tambahkan
-                </button>
+                </a>
+
             </div>
 
             <!-- Kanan: Input Search -->

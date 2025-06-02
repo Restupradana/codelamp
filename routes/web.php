@@ -51,6 +51,10 @@ Route::get('/instruktur_kursus', function () {
     return view('instruktur.kursus');
 })->name('instruktur.kursus');
 
+Route::get('/instruktur/kursus/tambah', function () {
+    return view('instruktur.kursus.kursus-tambah');
+})->name('instruktur.kursus.tambah');
+
 Route::get('/instruktur_pembayaran', function () {
     return view('instruktur.pembayaran');
 })->name('instruktur.pembayaran');
