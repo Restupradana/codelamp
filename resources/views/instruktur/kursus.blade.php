@@ -41,6 +41,7 @@
                 <tr class="bg-[#E8E6E6] font-bold">
                     <th class="px-4 py-2 border-b border-gray-300">No</th>
                     <th class="px-4 py-2 border-b border-gray-300">Tanggal</th>
+                    <th class="px-4 py-2 border-b border-gray-300">Instruktur</th>
                     <th class="px-4 py-2 border-b border-gray-300">Cover</th>
                     <th class="px-4 py-2 border-b border-gray-300">Judul</th>
                     <th class="px-4 py-2 border-b border-gray-300">Kategori</th>
@@ -55,18 +56,22 @@
                 <tr class="{{ $loop->even ? 'bg-[#E8E6E6]' : 'bg-[#FFFFFF]' }}">
                     <td class="px-4 py-2 border-b border-gray-300">{{ $index + 1 }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ $item->tgl_pembuatan }}</td>
+                    <td class="px-4 py-2 border-b border-gray-300">{{ $item->instruktur }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">
-                        <img src="{{ $item->cover ? asset('storage/' . $item->cover) : asset('images/default-cover.jpg') }}" alt="Cover" class="w-16 h-10 object-cover" />
+                        <img src="{{ $item->cover ? asset('uploads/covers/' . $item->cover) : asset('images/default-cover.jpg') }}"
+                            alt="Cover" class="w-16 h-10 object-cover" />
                     </td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ $item->judul_kursus }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ $item->kategori }}</td>
-                    <td class="px-4 py-2 border-b border-gray-300">Rp{{ number_format($item->harga_kursus, 0, ',', '.') }}</td>
+                    <td class="px-4 py-2 border-b border-gray-300">
+                        Rp{{ number_format($item->harga_kursus, 0, ',', '.') }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ ucfirst($item->status) }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ $item->jumlah_siswa ?? 0 }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">
                         <div class="flex gap-2">
                             <!-- Detail -->
-                            <a href="#" class="w-[51px] h-[30px] bg-[#5EA3FD] rounded-[6px] flex items-center justify-center">
+                            <a href="#"
+                                class="w-[51px] h-[30px] bg-[#5EA3FD] rounded-[6px] flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,7 +81,9 @@
                                 </svg>
                             </a>
                             <!-- Edit -->
-                            <a href="#" class="w-[51px] h-[30px] bg-[#FBB800] rounded-[6px] flex items-center justify-center">
+                            <a href="{{ route('instruktur.kursus.edit', $item->id_kursus) }}"
+                                class="w-[51px] h-[30px] bg-[#FBB800] rounded-[6px] flex items-center justify-center"
+                                title="Edit Kursus">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -85,19 +92,21 @@
                                         d="M18.5 2.5l3 3L12 15l-4 1 1-4 9.5-9.5z" />
                                 </svg>
                             </a>
-                            <!-- Delete -->
-                            <form action="#" method="POST">
+
+                            <form action="{{ route('instruktur.kursus.destroy', $item->id_kursus) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus kursus ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="w-[51px] h-[30px] bg-[#FF0000] rounded-[6px] flex items-center justify-center">
+                                    class="w-[51px] h-[30px] bg-[#FF0000] rounded-[6px] flex items-center justify-center"
+                                    title="Hapus Kursus">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6 18L18 6M6 6l12 12" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
                             </form>
+
                         </div>
                     </td>
                 </tr>

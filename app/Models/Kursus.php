@@ -15,8 +15,8 @@ class Kursus extends Model
 
     protected $fillable = [
         'tgl_pembuatan',
-        'instruktur',
         'judul_kursus',
+        'instruktur',
         'kategori',
         'harga_kursus',
         'status',

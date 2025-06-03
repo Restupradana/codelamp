@@ -51,6 +51,9 @@ Route::get('/instruktur_profil', function () {
 Route::get('/instruktur_kursus', [KursusController::class, 'index'])->name('instruktur.kursus');
 Route::get('/instruktur/kursus/tambah', [KursusController::class, 'create'])->name('instruktur.kursus.tambah');
 Route::post('/instruktur/kursus', [KursusController::class, 'store'])->name('instruktur.kursus.store');
+Route::get('/instruktur/kursus/edit/{id}', [KursusController::class, 'edit'])->name('instruktur.kursus.edit');
+Route::put('/instruktur/kursus/update/{id}', [KursusController::class, 'update'])->name('instruktur.kursus.update');
+Route::delete('instruktur/kursus/delete/{id}', [KursusController::class, 'destroy'])->name('instruktur.kursus.destroy');
 
 Route::get('/instruktur_pembayaran', function () {
     return view('instruktur.pembayaran');
