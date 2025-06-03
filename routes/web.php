@@ -54,6 +54,7 @@ Route::post('/instruktur/kursus', [KursusController::class, 'store'])->name('ins
 Route::get('/instruktur/kursus/edit/{id}', [KursusController::class, 'edit'])->name('instruktur.kursus.edit');
 Route::put('/instruktur/kursus/update/{id}', [KursusController::class, 'update'])->name('instruktur.kursus.update');
 Route::delete('instruktur/kursus/delete/{id}', [KursusController::class, 'destroy'])->name('instruktur.kursus.destroy');
+Route::get('/instruktur/kursus/{id}', [KursusController::class, 'show'])->name('instruktur.kursus.show');
 
 Route::get('/instruktur_pembayaran', function () {
     return view('instruktur.pembayaran');

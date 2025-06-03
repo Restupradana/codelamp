@@ -141,27 +141,37 @@ class KursusController extends Controller
         return redirect()->route('instruktur.kursus')->with('success', 'Kursus berhasil diperbarui.');
     }
 
-    /**
- * Menghapus data kursus.
- */
-public function destroy($id)
-{
-    $kursus = Kursus::findOrFail($id);
+        /**
+     * Menghapus data kursus.
+     */
+    public function destroy($id)
+    {
+        $kursus = Kursus::findOrFail($id);
 
-    // Hapus file cover jika ada
-    if ($kursus->cover && file_exists(public_path('uploads/covers/' . $kursus->cover))) {
-        File::delete(public_path('uploads/covers/' . $kursus->cover));
+        // Hapus file cover jika ada
+        if ($kursus->cover && file_exists(public_path('uploads/covers/' . $kursus->cover))) {
+            File::delete(public_path('uploads/covers/' . $kursus->cover));
+        }
+
+        // Hapus file video jika ada
+        if ($kursus->vidio && file_exists(public_path('uploads/videos/' . $kursus->vidio))) {
+            File::delete(public_path('uploads/videos/' . $kursus->vidio));
+        }
+
+        // Hapus data dari database
+        $kursus->delete();
+
+        return redirect()->route('instruktur.kursus')->with('success', 'Kursus berhasil dihapus.');
+
+        
     }
 
-    // Hapus file video jika ada
-    if ($kursus->vidio && file_exists(public_path('uploads/videos/' . $kursus->vidio))) {
-        File::delete(public_path('uploads/videos/' . $kursus->vidio));
+        /**
+     * Menampilkan detail dari satu kursus.
+     */
+    public function show($id)
+    {
+        $kursus = Kursus::findOrFail($id);
+        return view('instruktur.kursus.kursus-detail', compact('kursus'));
     }
-
-    // Hapus data dari database
-    $kursus->delete();
-
-    return redirect()->route('instruktur.kursus')->with('success', 'Kursus berhasil dihapus.');
-}
-
 }

@@ -41,13 +41,11 @@
                 <tr class="bg-[#E8E6E6] font-bold">
                     <th class="px-4 py-2 border-b border-gray-300">No</th>
                     <th class="px-4 py-2 border-b border-gray-300">Tanggal</th>
-                    <th class="px-4 py-2 border-b border-gray-300">Instruktur</th>
                     <th class="px-4 py-2 border-b border-gray-300">Cover</th>
                     <th class="px-4 py-2 border-b border-gray-300">Judul</th>
                     <th class="px-4 py-2 border-b border-gray-300">Kategori</th>
                     <th class="px-4 py-2 border-b border-gray-300">Harga</th>
                     <th class="px-4 py-2 border-b border-gray-300">Status</th>
-                    <th class="px-4 py-2 border-b border-gray-300">Jumlah Siswa</th>
                     <th class="px-4 py-2 border-b border-gray-300">Tindakan</th>
                 </tr>
             </thead>
@@ -56,7 +54,6 @@
                 <tr class="{{ $loop->even ? 'bg-[#E8E6E6]' : 'bg-[#FFFFFF]' }}">
                     <td class="px-4 py-2 border-b border-gray-300">{{ $index + 1 }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ $item->tgl_pembuatan }}</td>
-                    <td class="px-4 py-2 border-b border-gray-300">{{ $item->instruktur }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">
                         <img src="{{ $item->cover ? asset('uploads/covers/' . $item->cover) : asset('images/default-cover.jpg') }}"
                             alt="Cover" class="w-16 h-10 object-cover" />
@@ -66,11 +63,10 @@
                     <td class="px-4 py-2 border-b border-gray-300">
                         Rp{{ number_format($item->harga_kursus, 0, ',', '.') }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">{{ ucfirst($item->status) }}</td>
-                    <td class="px-4 py-2 border-b border-gray-300">{{ $item->jumlah_siswa ?? 0 }}</td>
                     <td class="px-4 py-2 border-b border-gray-300">
                         <div class="flex gap-2">
                             <!-- Detail -->
-                            <a href="#"
+                            <a href="{{ route('instruktur.kursus.show', $item->id_kursus) }}"
                                 class="w-[51px] h-[30px] bg-[#5EA3FD] rounded-[6px] flex items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
