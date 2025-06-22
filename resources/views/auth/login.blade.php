@@ -24,7 +24,7 @@
             <p class="text-sm text-gray-600 mt-1">Masuk sebagai Siswa</p>
         </div>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('siswa.login.submit') }}">
             @csrf
 
             <div class="mb-4">
@@ -43,10 +43,7 @@
 
             <button type="submit"
                 class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg transition duration-300">
-                <a href="/murid/dashboard"
-                    class="block w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 rounded-lg text-center transition duration-300">
-                    Masuk
-                </a>
+                Masuk
             </button>
 
             <div class="text-right mt-3">
@@ -55,6 +52,7 @@
                 </a>
             </div>
         </form>
+
     </div>
 
 </body>

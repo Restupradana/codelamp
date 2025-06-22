@@ -17,10 +17,10 @@
         <img src="{{ asset('gambar/logo1.png') }}" alt="Logo" class="w-12 md:w-15 mb-2">
       </div>
       <div>
-          <a href="{{ route('loginSiswa') }}" class="px-4 py-2 mr-3 border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
+          <a href="{{ route('siswa.login') }}"  class="px-4 py-2 mr-3 border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
             Masuk
           </a>
-          <a href="{{ route('loginSiswa') }}" class="px-4 py-2 border border-yellow-600 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
+          <a href="" class="px-4 py-2 border border-yellow-600 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
             Daftar
           </a>
       </div>

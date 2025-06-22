@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('kursus', function (Blueprint $table) {
-    $table->string('instruktur')->after('judul_kursus');
-});
-
+        Schema::create('pertanyaans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('siswa_id')->constrained('siswa');
+            $table->text('isi');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('kursus', function (Blueprint $table) {
-            $table->string('instruktur')->after('judul_kursus');
-        });
+        Schema::dropIfExists('pertanyaans');
     }
 };

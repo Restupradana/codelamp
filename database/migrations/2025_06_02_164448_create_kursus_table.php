@@ -12,13 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kursus', function (Blueprint $table) {
-           $table->bigIncrements('id_kursus'); // primary key dengan nama id_kursus
+            //    $table->bigIncrements('id_kursus'); // primary key dengan nama id_kursus
+            $table->id();
             $table->date('tgl_pembuatan');
             $table->string('instruktur');  // bisa diubah ke foreign key nanti kalau ada tabel instruktur
             $table->string('judul_kursus');
             $table->string('kategori');
             $table->integer('harga_kursus');
             $table->string('status');  // misal: aktif, nonaktif, draft
+            $table->string('cover');  // misal: aktif, nonaktif, draft
+            $table->string('vidio');  // misal: aktif, nonaktif, draft
+            $table->string('deskripsi');  // misal: aktif, nonaktif, draft
+            $table->string('jumlah_siswa');  // misal: aktif, nonaktif, draft
             $table->timestamps();  // created_at dan updated_at
         });
     }

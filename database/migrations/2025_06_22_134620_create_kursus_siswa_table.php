@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswa', function (Blueprint $table) {
+        Schema::create('kursus_siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap');
-            $table->string('nomor_hp');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+            $table->foreignId('siswa_id')->constrained('siswa');
+            $table->foreignId('kursus_id')->constrained('kursus');
+            $table->string('skor');
+            $table->string('status');
+            $table->string('tanggal_masuk');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswa');
+        Schema::dropIfExists('kursus_siswa');
     }
 };

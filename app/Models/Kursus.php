@@ -27,4 +27,11 @@ class Kursus extends Model
     ];
 
     public $timestamps = true;
+
+    public function siswa()
+    {
+        return $this->belongsToMany(Siswa::class, 'kursus_siswa')
+            ->withPivot('skor', 'status', 'tanggal_masuk')
+            ->withTimestamps();
+    }
 }
