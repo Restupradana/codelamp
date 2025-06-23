@@ -37,4 +37,14 @@ class Kursus extends Model
     {
         return $this->hasMany(KursusSiswa::class);
     }
+
+    public function tujuan()
+    {
+        return $this->hasMany(TujuanKursus::class);
+    }
+
+    public function materi()
+    {
+        return $this->hasMany(MateriKursus::class);
+    }
 }
