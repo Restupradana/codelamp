@@ -18,4 +18,5 @@ class Pertanyaan extends Model
     {
         return $this->hasOne(Jawaban::class);
     }
+    
 }

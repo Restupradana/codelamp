@@ -11,8 +11,6 @@ class Kursus extends Model
 
     protected $table = 'kursus';
 
-    protected $primaryKey = 'id_kursus';
-
     protected $fillable = [
         'tgl_pembuatan',
         'judul_kursus',
@@ -33,5 +31,10 @@ class Kursus extends Model
         return $this->belongsToMany(Siswa::class, 'kursus_siswa')
             ->withPivot('skor', 'status', 'tanggal_masuk')
             ->withTimestamps();
+    }
+
+    public function kursusSiswa()
+    {
+        return $this->hasMany(KursusSiswa::class);
     }
 }

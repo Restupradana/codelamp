@@ -48,4 +48,9 @@ class Siswa extends Authenticatable
             ->withPivot('skor', 'status', 'tanggal_masuk')
             ->withTimestamps();
     }
+
+    public function kursusSiswa()
+    {
+        return $this->hasMany(KursusSiswa::class);
+    }
 }

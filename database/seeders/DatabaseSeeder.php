@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             TransaksiSeeder::class,
             PertanyaanSeeder::class,
             KursusSiswaSeeder::class,
+            JawabanSeeder::class,
         ]);
     }
 }

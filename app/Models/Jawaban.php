@@ -13,4 +13,9 @@ class Jawaban extends Model
     {
         return $this->belongsTo(Pertanyaan::class);
     }
+
+    public function mentor()
+    {
+        return $this->belongsTo(Mentor::class);
+    }
 }

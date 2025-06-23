@@ -3,7 +3,7 @@
 @section('content')
 <div class="p-6 bg-white min-h-screen">
     <div class="bg-white rounded shadow-lg p-6">
-        {{-- Judul dengan ikon --}}
+        <!-- Judul -->
         <div class="flex items-center mb-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-gray-700" fill="none"
                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -16,68 +16,53 @@
         <p class="text-sm text-gray-500 mb-4 uppercase">Data Diri Anda</p>
         <hr class="mb-6 border-gray-300">
 
-        <form action="{{ route('loginSiswa') }}" method="POST" class="space-y-4">
+        <form action="{{ route('siswa.profil.update') }}" method="POST" class="space-y-4">
             @csrf
             @method('PUT')
 
+            <!-- Nama Lengkap (readonly) -->
             <div>
-                <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Masukkan nama lengkap Anda" value="" />
+                <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap"
+                    value="{{ old('nama_lengkap', $siswa->nama_lengkap ?? '') }}"
+                    class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded px-3 py-2 text-gray-700 cursor-not-allowed"
+                    readonly />
             </div>
 
+            <!-- Nomor HP -->
             <div>
-                <label for="nomor_ktp" class="block text-sm font-medium text-gray-700">Nomor ID / KTP</label>
-                <input type="number" id="nomor_ktp" name="nomor_ktp"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Masukkan nomor ID / KTP Anda" value="" />
+                <label for="nomor_hp" class="block text-sm font-medium text-gray-700">Nomor HP</label>
+                <input type="text" id="nomor_hp" name="nomor_hp" value="{{ old('nomor_hp', $siswa->nomor_hp ?? '') }}"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-[#F5B40D] focus:ring-1"
+                    placeholder="Masukkan nomor HP Anda" />
             </div>
 
+            <!-- Email -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Masukkan alamat email Anda" value="" />
+                <input type="email" id="email" name="email" value="{{ old('email', $siswa->email ?? '') }}"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-[#F5B40D] focus:ring-1"
+                    placeholder="Masukkan alamat email Anda" />
             </div>
 
+            <!-- Password Baru -->
             <div>
-                <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                <input type="text" id="jenis_kelamin" name="jenis_kelamin"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Contoh: Laki-laki / Perempuan" value="" />
+                <label for="password" class="block text-sm font-medium text-gray-700">Password Baru</label>
+                <input type="password" id="password" name="password"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-[#F5B40D] focus:ring-1"
+                    placeholder="Biarkan kosong jika tidak ingin mengganti" />
             </div>
 
+            <!-- Konfirmasi Password -->
             <div>
-                <label for="no_hp" class="block text-sm font-medium text-gray-700">Nomor HP</label>
-                <input type="number" id="no_hp" name="no_hp"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Masukkan nomor HP Anda" value="" />
-            </div>
-
-            <div>
-                <label for="tingkat_pelajar" class="block text-sm font-medium text-gray-700">Tingkat Pelajar</label>
-                <input type="text" id="tingkat_pelajar" name="tingkat_pelajar"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Contoh: Pemula / Menengah / Mahir" value="" />
-            </div>
-
-            <div>
-                <label for="pertanyaan" class="block text-sm font-medium text-gray-700">Pertanyaan</label>
-                <input type="text" id="pertanyaan" name="pertanyaan"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Jika ada pertanyaan terkait profil Anda" value="" />
-            </div>
-
-            <div>
-                <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
-                <textarea id="alamat" name="alamat" rows="3"
-                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#F5B40D]"
-                    placeholder="Masukkan alamat lengkap Anda"></textarea>
+                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Konfirmasi Password Baru</label>
+                <input type="password" id="password_confirmation" name="password_confirmation"
+                    class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-[#F5B40D] focus:ring-1"
+                    placeholder="Ulangi password baru" />
             </div>
 
             <div class="flex justify-end space-x-2 pt-4">
-                <a href="{{ route('dashboardSiswa') }}"
+                <a href="{{ route('siswa.dashboard') }}"
                     class="px-4 py-2 border border-gray-300 rounded text-sm text-gray-600 hover:bg-gray-100 transition-colors">Batal</a>
                 <button type="submit"
                     class="px-4 py-2 text-white rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2"
