@@ -89,6 +89,39 @@ class KursusSeeder extends Seeder
                     ],
                 ],
             ],
+            [
+                'judul_kursus' => 'Desain Grafis dengan Canva',
+                'tgl_pembuatan' => Carbon::now()->subDays(1),
+                'kategori' => 'Desain',
+                'harga_kursus' => 120000,
+                'status' => 'aktif',
+                'cover' => 'gambar4.jpg',
+                'vidio' => 'video3.mp4',
+                'deskripsi' => 'Panduan lengkap membuat desain menarik menggunakan Canva.',
+                'jumlah_siswa' => 29,
+                'tujuan' => [
+                    'Memahami dasar-dasar desain visual.',
+                    'Menggunakan fitur-fitur utama Canva.',
+                    'Membuat desain profesional tanpa pengalaman desain.',
+                ],
+                'materi' => [
+                    [
+                        'judul' => 'Pengenalan Canva',
+                        'deskripsi' => 'Apa itu Canva dan mengapa populer',
+                        'sub_materi' => ['Membuat Akun Canva', 'Navigasi Dasar', 'Template dan Elemen'],
+                    ],
+                    [
+                        'judul' => 'Desain Sosial Media',
+                        'deskripsi' => 'Membuat konten Instagram dan Facebook',
+                        'sub_materi' => ['Post Instagram', 'Story Instagram', 'Thumbnail YouTube'],
+                    ],
+                    [
+                        'judul' => 'Proyek Akhir',
+                        'deskripsi' => 'Latihan mandiri membuat desain promosi',
+                        'sub_materi' => ['Desain Poster', 'Flyer Event', 'Banner Online'],
+                    ],
+                ],
+            ],
         ];
 
         foreach ($kursusList as $index => $data) {
@@ -99,7 +132,7 @@ class KursusSeeder extends Seeder
             // Simpan kursus
             $kursusModel = Kursus::create([
                 'tgl_pembuatan' => $data['tgl_pembuatan'],
-                'instruktur' => $instrukturName, // dari kolom 'name'
+                'instruktur_id' => $instruktur->id, // sesuaikan dengan kolom relasional
                 'judul_kursus' => $data['judul_kursus'],
                 'kategori' => $data['kategori'],
                 'harga_kursus' => $data['harga_kursus'],
@@ -109,6 +142,7 @@ class KursusSeeder extends Seeder
                 'deskripsi' => $data['deskripsi'],
                 'jumlah_siswa' => $data['jumlah_siswa'],
             ]);
+
 
             // Tambahkan tujuan kursus
             foreach ($data['tujuan'] as $tujuan) {

@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('kursus_siswa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id')->constrained('siswa');
-            $table->foreignId('kursus_id')->constrained('kursus');
-            $table->string('skor');
-            $table->string('status');
-            $table->string('tanggal_masuk');
+
+            // Relasi ke tabel users (sebagai siswa)
+            $table->foreignId('siswa_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+
+            // Relasi ke tabel kursus
+            $table->foreignId('kursus_id')
+                  ->constrained('kursus')
+                  ->onDelete('cascade');
+
+            $table->integer('skor'); // Nilai kursus
+            $table->enum('status', ['aktif', 'selesai', 'batal'])->default('aktif'); // Status keikutsertaan
+            $table->date('tanggal_masuk'); // Tanggal mulai ikut kursus
+
             $table->timestamps();
         });
     }

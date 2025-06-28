@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('status');  // misal: aktif, nonaktif, draft
             $table->string('cover');  // misal: aktif, nonaktif, draft
             $table->string('vidio');  // misal: aktif, nonaktif, draft
-            $table->string('deskripsi');  // misal: aktif, nonaktif, draft
-            $table->string('jumlah_siswa');  // misal: aktif, nonaktif, draft
+            $table->integer('jumlah_siswa');
+            $table->text('deskripsi');
             $table->timestamps();  // created_at dan updated_at
         });
     }

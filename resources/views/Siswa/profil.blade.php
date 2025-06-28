@@ -12,6 +12,7 @@
             </svg>
             <h2 class="text-xl font-semibold">Profil</h2>
         </div>
+        
 
         <p class="text-sm text-gray-500 mb-4 uppercase">Data Diri Anda</p>
         <hr class="mb-6 border-gray-300">

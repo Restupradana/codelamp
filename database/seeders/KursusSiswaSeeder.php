@@ -3,44 +3,36 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Kursus;
+use App\Models\KursusSiswa;
 use Illuminate\Support\Carbon;
 
 class KursusSiswaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('kursus_siswa')->insert([
-            [
-                'siswa_id' => 1,
-                'kursus_id' => 1,
-                'skor' => '85',
-                'status' => 'aktif',
-                'tanggal_masuk' => Carbon::now()->toDateString(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
-            [
-                'siswa_id' => 1,
-                'kursus_id' => 2,
-                'skor' => '90',
-                'status' => 'selesai',
-                'tanggal_masuk' => Carbon::now()->subDays(10)->toDateString(),
-                'created_at' => Carbon::now()->subDays(10),
-                'updated_at' => Carbon::now()->subDays(2),
-            ],
-            [
-                'siswa_id' => 2,
-                'kursus_id' => 1,
-                'skor' => '78',
-                'status' => 'aktif',
-                'tanggal_masuk' => Carbon::now()->subDays(5)->toDateString(),
-                'created_at' => Carbon::now()->subDays(5),
-                'updated_at' => Carbon::now()->subDays(1),
-            ],
-        ]);
+        $siswas = User::where('role', 'siswa')->get();
+        $kursuses = Kursus::all();
+
+        if ($siswas->isEmpty() || $kursuses->isEmpty()) {
+            $this->command->warn('Tidak ada siswa atau kursus tersedia. Seeder dibatalkan.');
+            return;
+        }
+
+        foreach ($siswas as $siswa) {
+            // Pilih 1-3 kursus secara acak yang akan diikuti oleh siswa ini
+            $kursusDipilih = $kursuses->random(rand(1, min(3, $kursuses->count())));
+
+            foreach ($kursusDipilih as $kursus) {
+                KursusSiswa::create([
+                    'siswa_id' => $siswa->id,
+                    'kursus_id' => $kursus->id,
+                    'skor' => rand(50, 100),
+                    'status' => collect(['aktif', 'selesai', 'batal'])->random(),
+                    'tanggal_masuk' => Carbon::now()->subDays(rand(1, 30)),
+                ]);
+            }
+        }
     }
 }

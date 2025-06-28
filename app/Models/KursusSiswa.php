@@ -16,15 +16,22 @@ class KursusSiswa extends Model
         'kursus_id',
         'skor',
         'status',
+        'tanggal_masuk',
     ];
 
-    // Relasi ke model Siswa
+    public $timestamps = true;
+
+    /**
+     * Relasi ke user dengan role 'siswa'
+     */
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'siswa_id');
+        return $this->belongsTo(User::class, 'siswa_id')->where('role', 'siswa');
     }
 
-    // Relasi ke model Kursus
+    /**
+     * Relasi ke kursus
+     */
     public function kursus()
     {
         return $this->belongsTo(Kursus::class, 'kursus_id');
