@@ -21,7 +21,7 @@
                         d="M12 2a7 7 0 017 7c0 4-5 9-7 11-2-2-7-7-7-11a7 7 0 017-7zm0 10a3 3 0 100-6 3 3 0 000 6z" />
                 </svg>
             </h1>
-            <p class="text-sm text-gray-600 mt-2">Masuk sebagai Siswa</p>
+            <p class="text-sm text-gray-600 mt-2">Silahkan Login</p>
         </div>
 
         {{-- Notifikasi error dari session --}}
@@ -42,7 +42,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('siswa.login.submit') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
 
             <div class="mb-4">

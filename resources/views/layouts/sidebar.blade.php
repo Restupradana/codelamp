@@ -56,7 +56,7 @@
             <div class="text-white">👤</div>
             <div
                 class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50">
-                <form method="POST" action="{{ route('siswa.logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-200">
                         🔓 Logout
