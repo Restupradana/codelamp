@@ -23,7 +23,7 @@
           class="px-4 py-2 mr-3 border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
           Masuk
         </a>
-        <a href=""
+        <a href="{{ route('') }}"
           class="px-4 py-2 border border-yellow-600 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-white transition">
           Daftar
         </a>
