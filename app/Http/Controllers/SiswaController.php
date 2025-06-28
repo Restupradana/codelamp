@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kursus;
+use App\Models\User;
 use App\Models\KursusSiswa;
+use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
 {
@@ -24,22 +26,19 @@ class SiswaController extends Controller
 
         return view('Siswa.dashboard', compact('siswa', 'kursus', 'leaderboard'));
     }
-
-    // Menampilkan halaman edit profil
     public function edit()
     {
-        $siswa = Auth::guard('siswa')->user();
+        $siswa = Auth::user(); // ambil dari tabel users
         return view('Siswa.profil', compact('siswa'));
     }
 
-    // Update data siswa
     public function update(Request $request)
     {
-        $siswa = Auth::guard('siswa')->user();
+        $siswa = Auth::user(); // ambil dari tabel users
 
         $request->validate([
             'nomor_hp' => 'required|string|max:20',
-            'email' => 'required|email|unique:siswa,email,' . $siswa->id,
+            'email' => 'required|email|unique:users,email,' . $siswa->id,
             'password' => 'nullable|min:6|confirmed',
         ]);
 
@@ -47,7 +46,7 @@ class SiswaController extends Controller
         $siswa->email = $request->email;
 
         if ($request->filled('password')) {
-            $siswa->password = bcrypt($request->password);
+            $siswa->password = Hash::make($request->password);
         }
 
         $siswa->save();

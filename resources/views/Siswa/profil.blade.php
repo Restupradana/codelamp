@@ -23,9 +23,9 @@
 
             <!-- Nama Lengkap (readonly) -->
             <div>
-                <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
-                <input type="text" id="nama_lengkap" name="nama_lengkap"
-                    value="{{ old('nama_lengkap', $siswa->nama_lengkap ?? '') }}"
+                <label for="name" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                <input type="text" id="name" name="name"
+                    value="{{ old('name', $siswa->name ?? '') }}"
                     class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded px-3 py-2 text-gray-700 cursor-not-allowed"
                     readonly />
             </div>
@@ -43,7 +43,7 @@
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email', $siswa->email ?? '') }}"
                     class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-[#F5B40D] focus:ring-1"
-                    placeholder="Masukkan alamat email Anda" />
+                    placeholder="Masukkan alamat email Anda" readonly />
             </div>
 
             <!-- Password Baru -->
