@@ -15,7 +15,7 @@ return new class extends Migration
             //    $table->bigIncrements('id_kursus'); // primary key dengan nama id_kursus
             $table->id();
             $table->date('tgl_pembuatan');
-            $table->string('instruktur');  // bisa diubah ke foreign key nanti kalau ada tabel instruktur
+            $table->foreignId('instruktur_id')->constrained('users')->onDelete('cascade');
             $table->string('judul_kursus');
             $table->string('kategori');
             $table->integer('harga_kursus');
