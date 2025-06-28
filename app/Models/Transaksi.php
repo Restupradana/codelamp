@@ -7,15 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    protected $fillable = ['siswa_id', 'kursus_id', 'status', 'tanggal_transaksi'];
+    use HasFactory;
+
+    // 👇 Tambahkan baris ini untuk override nama tabel
+    protected $table = 'transaksi';
+
+    protected $fillable = [
+        'siswa_id',
+        'kursus_id',
+        'status',
+        'tanggal_transaksi',
+        'metode_pembayaran',
+        'created_at',
+        'updated_at'
+    ];
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(User::class, 'siswa_id');
     }
 
-    public function paket()
+    public function kursus()
     {
-        return $this->belongsTo(Paket::class);
+        return $this->belongsTo(Kursus::class, 'kursus_id');
     }
 }

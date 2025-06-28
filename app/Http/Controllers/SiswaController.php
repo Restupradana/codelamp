@@ -7,18 +7,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Kursus;
 use App\Models\User;
 use App\Models\KursusSiswa;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
 {
-
-    // ✅ Menampilkan halaman dashboard siswa
     public function dashboard()
     {
-        $siswa = Auth::guard('siswa')->user();
+        $siswa = Auth::user();
         $kursus = Kursus::all();
 
-        // Ambil leaderboard berdasarkan skor tertinggi, join ke tabel siswa
         $leaderboard = KursusSiswa::with(['siswa', 'kursus'])
             ->orderByDesc('skor')
             ->take(6)
@@ -26,15 +24,16 @@ class SiswaController extends Controller
 
         return view('Siswa.dashboard', compact('siswa', 'kursus', 'leaderboard'));
     }
+
     public function edit()
     {
-        $siswa = Auth::user(); // ambil dari tabel users
+        $siswa = Auth::user();
         return view('Siswa.profil', compact('siswa'));
     }
 
     public function update(Request $request)
     {
-        $siswa = Auth::user(); // ambil dari tabel users
+        $siswa = Auth::user();
 
         $request->validate([
             'nomor_hp' => 'required|string|max:20',
@@ -54,16 +53,14 @@ class SiswaController extends Controller
         return redirect()->route('siswa.dashboard')->with('success', 'Profil berhasil diperbarui.');
     }
 
-    // Menampilkan semua kursus yang tersedia
     public function listKursus()
     {
-        $kursusList = Kursus::all(); // ini adalah koleksi, jadi jangan namakan $kursus untuk menghindari konflik
+        $kursusList = Kursus::all();
         return view('Siswa.tampilan_kursus', compact('kursusList'));
     }
 
     public function tampilkanKursus($id)
     {
-        // ✅ Gunakan 'id' (bukan 'id_kursus')
         $kursus = Kursus::findOrFail($id);
 
         $materi = [
@@ -76,12 +73,10 @@ class SiswaController extends Controller
         return view('Siswa.detail_kursus', compact('kursus', 'materi'));
     }
 
-    // ✅ Proses pembelian kursus oleh siswa
     public function beliKursus($id)
     {
-        $siswa = Auth::guard('siswa')->user();
+        $siswa = Auth::user();
 
-        // Cek apakah kursus sudah dibeli
         $sudahBeli = KursusSiswa::where('siswa_id', $siswa->id)
             ->where('kursus_id', $id)
             ->exists();
@@ -90,7 +85,6 @@ class SiswaController extends Controller
             return redirect()->back()->with('info', 'Kursus ini sudah kamu beli.');
         }
 
-        // Simpan ke pivot table
         KursusSiswa::create([
             'siswa_id' => $siswa->id,
             'kursus_id' => $id,
@@ -99,14 +93,23 @@ class SiswaController extends Controller
         return redirect()->route('siswa.kursus_dibeli')->with('success', 'Kursus berhasil dibeli!');
     }
 
-    // ✅ Menampilkan semua kursus yang telah dibeli oleh siswa
     public function kursusDibeli()
     {
-        $siswa = Auth::guard('siswa')->user();
-
-        // Pastikan relasi kursus() sudah ada di model Siswa
+        $siswa = Auth::user();
         $kursusDibeli = $siswa->kursus()->get();
 
         return view('Siswa.kursus_dibeli', compact('kursusDibeli'));
+    }
+
+    public function catatanPembayaran()
+    {
+        $siswa = Auth::user();
+
+        $transaksis = Transaksi::with(['kursus.instruktur'])
+            ->where('siswa_id', $siswa->id)
+            ->orderByDesc('tanggal_transaksi')
+            ->get();
+
+        return view('Siswa.pembayaran', compact('transaksis'));
     }
 }

@@ -52,7 +52,8 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     // Halaman Tambahan
     Route::get('/ganti-sandi', fn() => view('siswa.ganti_sandi'))->name('siswa.ganti_sandi');
     Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
-    Route::get('/pembayaran', fn() => view('siswa.pembayaran'))->name('siswa.pembayaran');
+    Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
+
 });
 
 

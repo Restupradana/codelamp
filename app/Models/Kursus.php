@@ -26,23 +26,18 @@ class Kursus extends Model
 
     public $timestamps = true;
 
-    /**
-     * Relasi ke user sebagai instruktur (user dengan role 'instruktur')
-     */
     public function instruktur()
     {
         return $this->belongsTo(User::class, 'instruktur_id');
     }
 
-    /**
-     * Relasi ke siswa yang mengikuti kursus
-     */
     public function siswa()
     {
-        return $this->belongsToMany(User::class, 'kursus_siswa')
+        return $this->belongsToMany(User::class, 'kursus_siswa', 'kursus_id', 'siswa_id')
             ->withPivot('skor', 'status', 'tanggal_masuk')
             ->withTimestamps();
     }
+
 
     public function kursusSiswa()
     {
