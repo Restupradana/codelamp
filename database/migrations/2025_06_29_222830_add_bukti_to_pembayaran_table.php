@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('transaksi', function (Blueprint $table) {
             $table->string('bukti_pembayaran')->nullable();
-            $table->string('status')->default('pending');
         });
     }
 
