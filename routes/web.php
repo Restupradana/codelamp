@@ -53,6 +53,14 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     Route::get('/ganti-sandi', fn() => view('siswa.ganti_sandi'))->name('siswa.ganti_sandi');
     Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
     Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
+    // Beli Kursus
+    Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.beli.kursus');
+
+    // Form upload bukti pembayaran setelah beli
+    Route::get('/pembayaran/upload/{id}', [SiswaController::class, 'formUploadBukti'])->name('siswa.pembayaran.form');
+
+    // Kirim bukti pembayaran
+    Route::post('/pembayaran/upload/{id}', [SiswaController::class, 'uploadBuktiPembayaran'])->name('siswa.pembayaran.upload');
 });
 
 

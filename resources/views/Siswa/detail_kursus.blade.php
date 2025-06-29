@@ -62,7 +62,7 @@
             <h1 class="text-xl font-bold text-gray-800 mb-6">Detail Kursus</h1>
 
             <div class="bg-white p-6 rounded-lg shadow-lg flex gap-6">
-                
+
                 <!-- Kiri: Info Kursus -->
                 <div class="flex-1">
                     <h2 class="text-xl font-bold mb-1">{{ $kursus->judul_kursus }}</h2>
@@ -152,13 +152,10 @@
                             Rp {{ number_format($kursus->harga_kursus, 0, ',', '.') }}
                         </p>
                         <div class="text-center">
-                            <form method="POST" action="{{ route('siswa.beli.kursus', $kursus->id) }}">
-                                @csrf
-                                <button type="submit"
-                                    class="inline-block bg-yellow-400 text-white px-6 py-2 rounded-full text-base font-semibold hover:bg-yellow-500 transition-colors">
-                                    Beli Sekarang
-                                </button>
-                            </form>
+                            <a href="{{ route('siswa.pembayaran.form', $kursus->id) }}"
+                                class="inline-block bg-yellow-400 text-white px-6 py-2 rounded-full text-base font-semibold text-center hover:bg-yellow-500 transition-colors">
+                                Beli Sekarang
+                            </a>
                         </div>
                     </div>
                 </div>

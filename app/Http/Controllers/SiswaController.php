@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\KursusSiswa;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class SiswaController extends Controller
@@ -122,5 +124,65 @@ class SiswaController extends Controller
             ->get();
 
         return view('Siswa.pembayaran', compact('transaksis'));
+    }
+
+    public function formBayar($id)
+    {
+        $kursus = Kursus::findOrFail($id);
+        return view('Siswa.form_pembayaran', compact('kursus'));
+    }
+
+    public function prosesBayar(Request $request, $id)
+    {
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $siswa = Auth::user();
+
+        // Simpan file bukti
+        $file = $request->file('bukti_pembayaran');
+        $namaFile = Str::uuid() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads/bukti'), $namaFile);
+
+        // Simpan transaksi
+        Transaksi::create([
+            'siswa_id' => $siswa->id,
+            'kursus_id' => $id,
+            'status' => 'pending',
+            'tanggal_transaksi' => now(),
+            'bukti_pembayaran' => $namaFile
+        ]);
+
+        return redirect()->route('siswa.pembayaran')->with('success', 'Bukti pembayaran berhasil dikirim. Menunggu konfirmasi.');
+    }
+
+    public function formUploadBukti($id)
+    {
+        $kursus = Kursus::with('instruktur.instrukturDetail')->findOrFail($id);
+
+        return view('Siswa.upload_bukti', compact('kursus'));
+    }
+
+
+    public function uploadBuktiPembayaran(Request $request, $id)
+    {
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $file = $request->file('bukti_pembayaran');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/bukti_pembayaran'), $namaFile);
+
+        Transaksi::create([
+            'siswa_id' => Auth::id(),
+            'kursus_id' => $id,
+            'status' => 'pending',
+            'tanggal_transaksi' => now(),
+            'bukti_pembayaran' => $namaFile,
+        ]);
+
+        return redirect()->route('siswa.pembayaran')->with('success', 'Bukti pembayaran berhasil diunggah. Menunggu konfirmasi.');
     }
 }
