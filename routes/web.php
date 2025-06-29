@@ -43,7 +43,7 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     // Kursus
     Route::get('/kursus', [SiswaController::class, 'listKursus'])->name('siswa.kursus');
     Route::get('/kursus/{id}', [SiswaController::class, 'tampilkanKursus'])->name('siswa.kursus.detail');
-    Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.kursus.beli');
+    Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.beli.kursus');
 
     // Profil
     Route::get('/profil', [SiswaController::class, 'edit'])->name('siswa.profil');
@@ -54,6 +54,7 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
     Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
 });
+
 
 
 // 🧑‍🏫 Routes untuk Instruktur

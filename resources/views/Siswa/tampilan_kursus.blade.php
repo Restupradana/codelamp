@@ -6,7 +6,9 @@
 <div class="grid grid-cols-3 gap-6">
     @forelse($kursusList as $kursus)
     <div class="bg-white rounded-lg shadow p-4">
-        <img src="{{ asset('storage/cover/' . $kursus->cover) }}" alt="Cover" class="rounded mb-4 w-full h-48 object-cover">
+        {{-- <img src="{{ asset('storage/cover/' . $kursus->cover) }}" alt="Cover" class="rounded mb-4 w-full h-48 object-cover"> --}}
+        <img src="{{ $kursus->cover ? asset('uploads/covers/' . $kursus->cover) : asset('images/default-cover.jpg') }}">
+
         <h3 class="font-semibold text-lg">{{ $kursus->judul_kursus }}</h3>
         <p class="text-sm text-gray-600">Pengajar: {{ $kursus->instruktur->name ?? 'Tidak diketahui' }}</p>
         <p class="text-sm text-gray-500">Kategori: {{ $kursus->kategori }}</p>

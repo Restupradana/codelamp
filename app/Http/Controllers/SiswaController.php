@@ -61,17 +61,15 @@ class SiswaController extends Controller
 
     public function tampilkanKursus($id)
     {
-        $kursus = Kursus::findOrFail($id);
+        $kursus = Kursus::with([
+            'instruktur',
+            'tujuan',
+            'materi.subMateri'  // nested eager loading
+        ])->findOrFail($id);
 
-        $materi = [
-            'Pengantar Pembelajaran' => ['Kosakata Sehari-hari', 'Video Pembelajaran', 'Quiz'],
-            'Pengenalan Bahasa' => ['Dasar-dasar kosakata dan kalimat sederhana'],
-            'Percakapan Dasar' => ['Simulasi percakapan dalam kehidupan sehari-hari'],
-            'Keterampilan Menengah' => ['Latihan untuk kefasihan berbicara dan menulis']
-        ];
-
-        return view('Siswa.detail_kursus', compact('kursus', 'materi'));
+        return view('Siswa.detail_kursus', compact('kursus'));
     }
+
 
     public function beliKursus($id)
     {
