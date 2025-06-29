@@ -53,4 +53,5 @@ class Kursus extends Model
     {
         return $this->hasMany(MateriKursus::class);
     }
+    
 }

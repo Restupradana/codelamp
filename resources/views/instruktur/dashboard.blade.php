@@ -77,26 +77,39 @@
         <!-- Courses -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($kursusList as $kursus)
-                <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                    <img src="{{ asset('storage/' . $kursus->cover) }}" alt="Course Image"
-                        class="w-full h-48 object-cover rounded-t-lg">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg transition-transform transform hover:scale-105">
+                    <div class="relative w-full h-48">
+                        <img src="{{ $kursus->cover ? asset('uploads/covers/' . $kursus->cover) : asset('images/default-cover.jpg') }}"
+                            alt="Cover Kursus" class="absolute inset-0 w-full h-full object-cover object-center" />
+                    </div>
+
                     <div class="p-4">
-                        <h3 class="text-lg font-bold mb-1">{{ $kursus->judul_kursus }}</h3>
+                        <h3 class="text-lg font-bold text-gray-800 mb-1 truncate">{{ $kursus->judul_kursus }}</h3>
                         <p class="text-sm text-gray-600 mb-2">{{ $kursus->instruktur->name ?? 'Tanpa Nama' }}</p>
-                        <div class="flex justify-end mb-4">
-                            <p class="text-black font-semibold">Rp. {{ number_format($kursus->harga_kursus, 0, ',', '.') }}</p>
-                        </div>
-                        <div class="text-center">
-                            <button class="bg-[#F5B40D] text-white px-6 py-2 text-l font-semibold"
-                                style="width: 150px; height: 50px;">
+
+                        <div class="flex items-center justify-between mt-4">
+                            <p class="text-[#F5B40D] text-base font-semibold">
+                                Rp {{ number_format($kursus->harga_kursus, 0, ',', '.') }}
+                            </p>
+                            <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
                                 {{ $kursus->jumlah_siswa ?? 0 }} Siswa
-                            </button>
+                            </span>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="{{ route('instruktur.kursus.show', $kursus->id) }}"
+                                class="inline-block bg-[#F5B40D] text-white font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 transition duration-300">
+                                Lihat Detail
+                            </a>
+
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="col-span-3 text-center text-gray-500">Belum ada kursus yang Anda ajarkan.</p>
+                <p class="col-span-3 text-center text-gray-500 text-lg">Belum ada kursus yang Anda ajarkan.</p>
             @endforelse
         </div>
+
+
 
 @endsection

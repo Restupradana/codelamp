@@ -56,16 +56,13 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
 });
 
 
-// =====================================================
 // 🧑‍🏫 Routes untuk Instruktur
-// =====================================================
 Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group(function () {
     Route::get('/dashboard', [InstrukturController::class, 'dashboard'])->name('instruktur.dashboard');
 
     // Profil dan Halaman Tambahan
     Route::get('/profil', [InstrukturController::class, 'profil'])->name('instruktur.profil');
     Route::post('/profil', [InstrukturController::class, 'updateProfil'])->name('instruktur.profil.update');
-
     Route::get('/pembayaran', fn() => view('instruktur.pembayaran'))->name('instruktur.pembayaran');
     Route::get('/pesan', fn() => view('instruktur.pesan'))->name('instruktur.pesan');
 
@@ -77,7 +74,12 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
     Route::put('/kursus/update/{id}', [KursusController::class, 'update'])->name('instruktur.kursus.update');
     Route::delete('/kursus/delete/{id}', [KursusController::class, 'destroy'])->name('instruktur.kursus.destroy');
     Route::get('/kursus/{id}', [KursusController::class, 'show'])->name('instruktur.kursus.show');
+
+    // Materi Kursus
+    Route::get('/kursus/{id}/materi/create', [KursusController::class, 'createMateri'])->name('materi.create');
+    Route::post('/kursus/materi', [KursusController::class, 'storeMateri'])->name('materi.store');
 });
+
 
 
 // =====================================================
