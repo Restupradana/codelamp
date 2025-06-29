@@ -65,10 +65,11 @@
             </div>
 
             <!-- Search -->
-            <div class="flex justify-center mb-8">
-                <input type="text" placeholder="Cari kursus..."
+            <form method="GET" action="{{ route('siswa.dashboard') }}" class="flex justify-center mb-8">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari kursus..."
                     class="w-full max-w-3xl h-12 px-4 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400" />
-            </div>
+            </form>
+
 
             <!-- Leaderboard -->
             <section class="flex justify-center mb-12 px-4">

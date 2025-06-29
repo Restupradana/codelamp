@@ -10,14 +10,27 @@ use App\Models\KursusSiswa;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Hash;
 
+
 class SiswaController extends Controller
 {
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $siswa = Auth::user();
-        $kursus = Kursus::all();
 
+        // Ambil keyword pencarian dari input (q)
+        $query = $request->input('q');
+
+        // Ambil daftar kursus yang cocok dengan pencarian
+        $kursus = Kursus::with(['instruktur', 'siswa'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('judul_kursus', 'like', '%' . $query . '%')
+                    ->orWhere('deskripsi', 'like', '%' . $query . '%');
+            })
+            ->get();
+
+        // Ambil leaderboard (6 tertinggi), dengan relasi siswa dan kursus
         $leaderboard = KursusSiswa::with(['siswa', 'kursus'])
+            ->where('status', 'aktif') // Hanya siswa yang aktif
             ->orderByDesc('skor')
             ->take(6)
             ->get();
