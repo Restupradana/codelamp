@@ -28,11 +28,11 @@
             <h3 class="text-md font-semibold text-yellow-700 mb-2">🔔 Petunjuk Pembayaran</h3>
             <p class="text-sm text-gray-700 mb-1">Silakan transfer ke rekening berikut:</p>
 
-            @if($kursus->instruktur && $kursus->instruktur->)
+            @if($kursus->instruktur && $kursus->instruktur->instrukturDetail)
                 <ul class="text-sm text-gray-800 list-inside list-disc ml-4">
-                    <li><strong>Bank:</strong> {{ $kursus->instruktur->detailInstruktur->nama_bank }}</li>
-                    <li><strong>Nomor Rekening:</strong> {{ $kursus->instruktur->detailInstruktur->nomor_rekening }}</li>
-                    <li><strong>Atas Nama:</strong> {{ $kursus->instruktur->detailInstruktur->nama_rekening }}</li>
+                    <li><strong>Bank:</strong> {{ $kursus->instruktur->instrukturDetail->nama_bank }}</li>
+                    <li><strong>Nomor Rekening:</strong> {{ $kursus->instruktur->instrukturDetail->nomor_rekening }}</li>
+                    <li><strong>Atas Nama:</strong> {{ $kursus->instruktur->instrukturDetail->nama_rekening }}</li>
                 </ul>
             @else
                 <p class="text-sm text-red-500">Data rekening instruktur belum tersedia.</p>
