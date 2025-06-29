@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('users')->onDelete('cascade');
             
             // Mengacu ke tabel kursus
-            $table->foreignId('kursus_id')->constrained('kursuses')->onDelete('cascade');
+            $table->foreignId('kursus_id')->constrained('kursus')->onDelete('cascade');
             
             $table->enum('status', ['pending', 'berhasil', 'gagal'])->default('pending');
             $table->timestamp('tanggal_transaksi')->nullable();

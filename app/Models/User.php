@@ -49,12 +49,17 @@ class User extends Authenticatable
     public function kursus()
     {
         return $this->belongsToMany(Kursus::class, 'kursus_siswa')
-                    ->withPivot('skor', 'status', 'tanggal_masuk')
-                    ->withTimestamps();
+            ->withPivot('skor', 'status', 'tanggal_masuk')
+            ->withTimestamps();
     }
 
     public function kursusSiswa()
     {
         return $this->hasMany(KursusSiswa::class);
+    }
+
+    public function detailInstruktur()
+    {
+        return $this->hasOne(InstrukturDetail::class, 'user_id');
     }
 }

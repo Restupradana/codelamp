@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KursusSeeder::class,
             KursusSiswaSeeder::class,
+            TransaksiSeeder::class,
+            InstrukturDetailSeeder::class,
         ]);
     }
 }
