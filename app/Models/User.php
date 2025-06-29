@@ -58,7 +58,7 @@ class User extends Authenticatable
         return $this->hasMany(KursusSiswa::class);
     }
 
-    public function detailInstruktur()
+    public function instrukturDetail()
     {
         return $this->hasOne(InstrukturDetail::class, 'user_id');
     }

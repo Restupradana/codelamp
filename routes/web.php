@@ -53,7 +53,6 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     Route::get('/ganti-sandi', fn() => view('siswa.ganti_sandi'))->name('siswa.ganti_sandi');
     Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
     Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
-
 });
 
 
@@ -64,7 +63,9 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
     Route::get('/dashboard', [InstrukturController::class, 'dashboard'])->name('instruktur.dashboard');
 
     // Profil dan Halaman Tambahan
-    Route::get('/profil', fn() => view('instruktur.profil'))->name('instruktur.profil');
+    Route::get('/profil', [InstrukturController::class, 'profil'])->name('instruktur.profil');
+    Route::post('/profil', [InstrukturController::class, 'updateProfil'])->name('instruktur.profil.update');
+
     Route::get('/pembayaran', fn() => view('instruktur.pembayaran'))->name('instruktur.pembayaran');
     Route::get('/pesan', fn() => view('instruktur.pesan'))->name('instruktur.pesan');
 
