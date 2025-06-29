@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kursus;
+use App\Models\KursusSiswa;
 use Illuminate\Support\Facades\Auth;
-
-use Illuminate\Http\Request;
 
 class InstrukturController extends Controller
 {
@@ -13,10 +12,18 @@ class InstrukturController extends Controller
     {
         $instrukturId = Auth::id();
 
+        // Ambil kursus milik instruktur
         $kursusList = Kursus::where('instruktur_id', $instrukturId)->get();
 
-        return view('instruktur.dashboard', compact('kursusList'));
-    }
+        // Ambil leaderboard dari tabel kursus_siswa, filter berdasarkan kursus yang diajar oleh instruktur
+        $leaderboard = KursusSiswa::with(['siswa', 'kursus'])
+            ->whereHas('kursus', function ($query) use ($instrukturId) {
+                $query->where('instruktur_id', $instrukturId);
+            })
+            ->orderByDesc('skor')
+            ->take(6)
+            ->get();
 
-    // Tambahkan fungsi lain sesuai kebutuhan (jika perlu)
+        return view('instruktur.dashboard', compact('kursusList', 'leaderboard'));
+    }
 }
