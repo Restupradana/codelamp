@@ -138,4 +138,62 @@ class AdminController extends Controller
 
         return redirect()->route('admin.instruktur.index')->with('success', 'Instruktur berhasil dihapus.');
     }
+
+    public function createSiswa()
+    {
+        return view('admin.pengguna.siswa-create');
+    }
+
+    public function storeSiswa(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'nomor_hp' => 'required',
+            'password' => 'required|min:6',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nomor_hp' => $request->nomor_hp,
+            'role' => 'siswa',
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('admin.users.siswa')->with('success', 'Siswa berhasil ditambahkan.');
+    }
+
+    public function editSiswa($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.pengguna.siswa-edit', compact('user'));
+    }
+
+    public function updateSiswa(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'nomor_hp' => 'required',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'nomor_hp' => $request->nomor_hp,
+        ]);
+
+        return redirect()->route('admin.users.siswa')->with('success', 'Data siswa berhasil diperbarui.');
+    }
+
+    public function destroySiswa($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.users.siswa')->with('success', 'Siswa berhasil dihapus.');
+    }
 }

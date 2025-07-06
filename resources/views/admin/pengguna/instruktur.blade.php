@@ -12,7 +12,7 @@
 <table class="w-full table-auto bg-white shadow rounded">
     <thead class="bg-gray-200">
         <tr class="text-left">
-            <th class="p-3">#</th>
+            <th class="p-3">No</th>
             <th class="p-3">Nama</th>
             <th class="p-3">Email</th>
             <th class="p-3">Nomor HP</th>
