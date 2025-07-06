@@ -48,9 +48,9 @@
                         </svg>
                     </button>
                     <div id="submenuPengguna" class="ml-8 mt-1 space-y-1 hidden">
-                        <a href="{{ route('admin.users') }}"
+                        <a href="{{ route('admin.users.instruktur') }}"
                             class="block py-1 px-2 text-gray-300 hover:bg-gray-700 rounded">Instruktur</a>
-                        <a href="{{ route('admin.users') }}"
+                        <a href="{{ route('admin.users.siswa') }}"
                             class="block py-1 px-2 text-gray-300 hover:bg-gray-700 rounded">Siswa</a>
                     </div>
                 </div>
@@ -75,8 +75,7 @@
                 </a>
 
                 <!-- Pesan -->
-                <a href="#"
-                    class="flex items-center gap-3 py-2 px-4 rounded-md hover:bg-gray-700 transition">
+                <a href="#" class="flex items-center gap-3 py-2 px-4 rounded-md hover:bg-gray-700 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="#D5D1D1" fill="none"
                         viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13h14l-7 7-7-7z" />
@@ -95,7 +94,8 @@
 
             <div class="relative">
                 <button id="profileMenuBtn" class="flex items-center space-x-2 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none"
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5.121 17.804A13.937 13.937 0 0112 15c3.042 0 5.824 1.007 8.121 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>

@@ -98,6 +98,19 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('admin.users');
+    // Admin - Pengguna
+    Route::get('/pengguna/instruktur', [AdminController::class, 'listInstruktur'])->name('admin.users.instruktur');
+    Route::get('/pengguna/siswa', [AdminController::class, 'listSiswa'])->name('admin.users.siswa');
+
+    // CRUD Instruktur
+    Route::get('/instruktur', [AdminController::class, 'listInstruktur'])->name('admin.instruktur.index');
+    Route::get('/instruktur/create', [AdminController::class, 'createInstruktur'])->name('admin.instruktur.create');
+    Route::post('/instruktur', [AdminController::class, 'storeInstruktur'])->name('admin.instruktur.store');
+    Route::get('/instruktur/{id}/edit', [AdminController::class, 'editInstruktur'])->name('admin.instruktur.edit');
+    Route::put('/instruktur/{id}', [AdminController::class, 'updateInstruktur'])->name('admin.instruktur.update');
+    Route::delete('/instruktur/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
+
+
     Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
 });
 
