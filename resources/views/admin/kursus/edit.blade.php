@@ -2,78 +2,67 @@
 @section('title', 'Edit Kursus')
 
 @section('content')
+@php use Illuminate\Support\Str; @endphp
+
 <!-- Header -->
 <div class="flex items-center gap-2 mb-4">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#0E1212"
-        stroke-width="2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#0E1212" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 9h10M9 14h10" />
     </svg>
     <span class="text-[18px] font-bold text-[#0E1212] leading-[30px]">Mengelola Kursus</span>
 </div>
 
-<!-- Card Utama -->
-<div class="w-full px-6">
-    <div class="w-full bg-white shadow-md p-6 rounded-[5px]">
-        <div class="text-[20px] text-[#0E1212] font-normal mb-1">Mengedit kursus</div>
-        <div class="text-[14px] text-[#9197A0] font-normal mb-6">DATA DASAR KURSUS</div>
+<!-- Card -->
+<div class="flex justify-center">
+    <div class="w-full max-w-[1431px] bg-white shadow-md p-6 rounded-[5px]">
+        <div class="text-[20px] font-normal text-[#0E1212] mb-1">Mengedit kursus</div>
+        <div class="text-[14px] text-[#9197A0] mb-6">DATA DASAR KURSUS</div>
 
-        <form action="{{ route('admin.kursus.update', $kursus->id) }}" method="POST"
-            enctype="multipart/form-data" class="space-y-4">
+        <form action="{{ route('admin.kursus.update', $kursus->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             @method('PUT')
 
             <!-- Instruktur -->
             <div class="flex items-center space-x-4">
-                <label for="instruktur_id"
-                    class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Instruktur</label>
-                <select id="instruktur_id" name="instruktur_id"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    required>
+                <label for="instruktur_id" class="w-[150px]">Instruktur</label>
+                <select name="instruktur_id" required class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400">
                     <option value="">-- Pilih Instruktur --</option>
-                    @foreach($instruktur as $i)
-                    <option value="{{ $i->id }}" {{ old('instruktur_id', $kursus->instruktur_id) == $i->id ? 'selected' : '' }}>
-                        {{ $i->name }}
-                    </option>
+                    @foreach($instrukturs as $i)
+                        <option value="{{ $i->id }}" {{ old('instruktur_id', $kursus->instruktur_id) == $i->id ? 'selected' : '' }}>
+                            {{ $i->name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
 
             <!-- Judul -->
             <div class="flex items-center space-x-4">
-                <label for="judul_kursus"
-                    class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Judul</label>
-                <input type="text" id="judul_kursus" name="judul_kursus" placeholder="Masukkan judul"
-                    value="{{ old('judul_kursus', $kursus->judul_kursus) }}"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    required>
+                <label for="judul_kursus" class="w-[150px]">Judul</label>
+                <input type="text" name="judul_kursus" required value="{{ old('judul_kursus', $kursus->judul_kursus) }}"
+                    class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400"
+                    placeholder="Masukkan judul">
             </div>
 
             <!-- Kategori -->
             <div class="flex items-center space-x-4">
-                <label for="kategori"
-                    class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Kategori</label>
-                <input type="text" id="kategori" name="kategori" placeholder="Masukkan kategori"
-                    value="{{ old('kategori', $kursus->kategori) }}"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    required>
+                <label for="kategori" class="w-[150px]">Kategori</label>
+                <input type="text" name="kategori" required value="{{ old('kategori', $kursus->kategori) }}"
+                    class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400"
+                    placeholder="Masukkan kategori">
             </div>
 
             <!-- Harga -->
             <div class="flex items-center space-x-4">
-                <label for="harga_kursus"
-                    class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Harga</label>
-                <input type="number" id="harga_kursus" name="harga_kursus" placeholder="Masukkan harga"
-                    value="{{ old('harga_kursus', $kursus->harga_kursus) }}"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    required>
+                <label for="harga_kursus" class="w-[150px]">Harga</label>
+                <input type="number" name="harga_kursus" required value="{{ old('harga_kursus', $kursus->harga_kursus) }}"
+                    class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400"
+                    placeholder="Contoh: 50000">
             </div>
 
             <!-- Status -->
             <div class="flex items-center space-x-4">
-                <label for="status" class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Status</label>
-                <select id="status" name="status"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    required>
+                <label for="status" class="w-[150px]">Status</label>
+                <select name="status" required class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400">
                     <option value="aktif" {{ old('status', $kursus->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
                     <option value="nonaktif" {{ old('status', $kursus->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
                 </select>
@@ -81,83 +70,93 @@
 
             <!-- Jumlah Siswa -->
             <div class="flex items-center space-x-4">
-                <label for="jumlah_siswa" class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Jumlah Siswa</label>
-                <input type="number" id="jumlah_siswa" name="jumlah_siswa" min="0"
+                <label for="jumlah_siswa" class="w-[150px]">Jumlah Siswa</label>
+                <input type="number" name="jumlah_siswa" min="0"
                     value="{{ old('jumlah_siswa', $kursus->jumlah_siswa ?? 0) }}"
-                    class="w-[1124px] h-[50px] px-4 text-sm border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    class="w-[1124px] h-[50px] px-4 border rounded-sm focus:ring-yellow-400">
             </div>
 
             <!-- Deskripsi -->
             <div class="flex items-start space-x-4">
-                <label for="deskripsi"
-                    class="w-[150px] h-[70px] flex items-center text-sm text-[#0E1212]">Deskripsi<br>Kursus</label>
-                <textarea id="deskripsi" name="deskripsi" placeholder="Tulis deskripsi kursus"
-                    class="w-[1124px] h-[92px] px-4 py-2 text-sm border border-gray-300 rounded-sm resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400">{{ old('deskripsi', $kursus->deskripsi) }}</textarea>
+                <label for="deskripsi" class="w-[150px]">Deskripsi Kursus</label>
+                <textarea name="deskripsi" rows="4"
+                    class="w-[1124px] px-4 py-2 border rounded-sm focus:ring-yellow-400 resize-none"
+                    placeholder="Tulis deskripsi kursus">{{ old('deskripsi', $kursus->deskripsi) }}</textarea>
             </div>
-
-            <!-- GAMBAR & VIDEO -->
-            <div class="text-[14px] text-[#9197A0] font-normal mt-8">GAMBAR & VIDIO</div>
 
             <!-- Upload Cover -->
             <div class="flex items-start space-x-4">
-                <label for="cover_kursus"
-                    class="w-[150px] h-[239px] flex items-center justify-center text-sm text-[#0E1212]">Unggah Cover<br>Kursus</label>
-                <div class="w-[1124px] h-[239px] bg-[#E8E6E6] rounded-sm flex flex-col items-center justify-center space-y-4">
+                <label for="cover_kursus" class="w-[150px]">Unggah Cover</label>
+                <div class="w-[1124px] flex flex-col space-y-2">
                     @if($kursus->cover)
-                    <img src="{{ asset('storage/uploads/covers/' . $kursus->cover) }}" alt="Cover Kursus"
-                        class="max-h-[120px] mb-4 object-contain">
+                        @php
+                            $coverPath = Str::startsWith($kursus->cover, 'covers/') ? $kursus->cover : 'covers/' . $kursus->cover;
+                        @endphp
+                        <img id="coverPreview" src="{{ asset('storage/' . $coverPath) }}"
+                             class="max-h-[200px] mt-2 rounded border border-gray-300">
                     @else
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <div class="text-gray-700 font-semibold">Tambah Cover Kursus</div>
+                        <img id="coverPreview" class="max-h-[200px] mt-2 rounded border border-gray-300 hidden">
                     @endif
-                    <label for="cover_kursus"
-                        class="cursor-pointer w-[200px] h-[50px] bg-[#F5B40D] text-white flex items-center justify-center rounded-[5px] text-sm font-medium hover:bg-[#e6a900] transition">
-                        Jelajahi File
-                    </label>
-                    <input type="file" id="cover_kursus" name="cover_kursus" class="hidden" accept="image/*">
+                    <input type="file" name="cover_kursus" id="cover_kursus" accept="image/*" class="block">
                 </div>
             </div>
 
             <!-- Upload Video -->
-            <div class="flex items-start space-x-4 mt-6">
-                <label for="vidio_kursus"
-                    class="w-[150px] h-[239px] flex items-center justify-center text-sm text-[#0E1212]">Unggah Vidio<br>Kursus</label>
-                <div class="w-[1124px] h-[239px] bg-[#E8E6E6] rounded-sm flex flex-col items-center justify-center space-y-4">
+            <div class="flex items-start space-x-4">
+                <label for="vidio_kursus" class="w-[150px]">Unggah Video</label>
+                <div class="w-[1124px] flex flex-col space-y-2">
                     @if($kursus->vidio)
-                    <video controls class="max-h-[120px] mb-4">
-                        <source src="{{ asset('storage/uploads/videos/' . $kursus->vidio) }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                        @php
+                            $videoPath = Str::startsWith($kursus->vidio, 'videos/') ? $kursus->vidio : 'videos/' . $kursus->vidio;
+                        @endphp
+                        <video id="videoPreview" class="max-h-[240px] mt-2 rounded border border-gray-300" controls>
+                            <source src="{{ asset('storage/' . $videoPath) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     @else
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <div class="text-gray-700 font-semibold">Tambah Vidio Kursus</div>
+                        <video id="videoPreview" class="max-h-[240px] mt-2 rounded border border-gray-300 hidden" controls></video>
                     @endif
-                    <label for="vidio_kursus"
-                        class="cursor-pointer w-[200px] h-[50px] bg-[#F5B40D] text-white flex items-center justify-center rounded-[5px] text-sm font-medium hover:bg-[#e6a900] transition">
-                        Jelajahi File
-                    </label>
-                    <input type="file" id="vidio_kursus" name="vidio_kursus" class="hidden" accept="video/*">
+                    <input type="file" name="vidio_kursus" id="vidio_kursus" accept="video/*" class="block">
                 </div>
             </div>
 
             <!-- Tombol -->
             <div class="flex justify-end space-x-4 mt-6">
                 <button type="button" onclick="window.history.back()"
-                    class="w-[150px] h-[50px] border border-[#F5B40D] text-[#F5B40D] bg-white text-sm rounded-[5px] hover:bg-[#fff9ec] transition">
+                        class="w-[150px] h-[50px] border border-yellow-400 text-yellow-500 rounded hover:bg-yellow-50">
                     Batal
                 </button>
-                <button type="submit"
-                    class="w-[150px] h-[50px] bg-[#F5B40D] text-white text-sm rounded-[5px] border border-[#F5B40D] hover:bg-[#e6a900] transition">
+                <button type="submit" class="w-[150px] h-[50px] bg-yellow-400 text-white rounded hover:bg-yellow-500">
                     Simpan
                 </button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Preview Script -->
+<script>
+    document.getElementById('cover_kursus').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                const img = document.getElementById('coverPreview');
+                img.src = evt.target.result;
+                img.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('vidio_kursus').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            const video = document.getElementById('videoPreview');
+            video.src = url;
+            video.classList.remove('hidden');
+        }
+    });
+</script>
 @endsection

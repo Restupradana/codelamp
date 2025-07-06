@@ -23,12 +23,6 @@ class AdminController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    public function listKursus()
-    {
-        $kursus = Kursus::all();
-        return view('admin.kursus', compact('kursus'));
-    }
-
     public function listInstruktur()
     {
         $instrukturs = User::with('instrukturDetail')
@@ -195,5 +189,130 @@ class AdminController extends Controller
         $user->delete();
 
         return redirect()->route('admin.users.siswa')->with('success', 'Siswa berhasil dihapus.');
+    }
+
+    public function listKursus(Request $request)
+    {
+        $query = Kursus::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('judul_kursus', 'like', '%' . $request->search . '%');
+        }
+
+        $kursus = $query->with(['instruktur', 'kursusSiswa'])->get();
+
+        return view('admin.kursus', compact('kursus'));
+    }
+
+
+    // Tampilkan form tambah kursus
+    public function createKursus()
+    {
+        $instrukturs = User::where('role', 'instruktur')->get();
+        return view('admin.kursus.create', compact('instrukturs'));
+    }
+
+    // Simpan kursus baru
+    public function storeKursus(Request $request)
+    {
+        $request->validate([
+            'instruktur_id' => 'required|exists:users,id',
+            'judul_kursus' => 'required|string|max:255',
+            'kategori' => 'required|string|max:100',
+            'deskripsi' => 'nullable|string',
+            'harga_kursus' => 'required|numeric',
+            'status' => 'required|in:aktif,nonaktif',
+            'cover_kursus' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'vidio_kursus' => 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:100000',
+        ]);
+
+        // Upload file cover
+        $coverPath = $request->file('cover_kursus')->store('covers', 'public');
+
+        // Upload file video
+        $videoPath = $request->file('vidio_kursus')->store('videos', 'public');
+
+        // Simpan ke database
+        Kursus::create([
+            'instruktur_id' => $request->instruktur_id,
+            'judul_kursus' => $request->judul_kursus,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga_kursus' => $request->harga_kursus,
+            'status' => $request->status,
+            'cover' => $coverPath, // kolom 'cover' di database
+            'vidio' => $videoPath, // kolom 'vidio' di database
+            'jumlah_siswa' => 0,
+            'tgl_pembuatan' => now()->toDateString(),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('admin.kursus')->with('success', 'Kursus berhasil ditambahkan.');
+    }
+
+    // Tampilkan form edit kursus
+    public function editKursus($id)
+    {
+        $kursus = Kursus::findOrFail($id);
+        $instrukturs = User::where('role', 'instruktur')->get();
+        return view('admin.kursus.edit', compact('kursus', 'instrukturs'));
+    }
+
+    // Update kursus
+    public function updateKursus(Request $request, $id)
+    {
+        $kursus = Kursus::findOrFail($id);
+
+        $request->validate([
+            'instruktur_id' => 'required|exists:users,id',
+            'judul_kursus' => 'required|string|max:255',
+            'kategori' => 'required|string|max:100',
+            'harga_kursus' => 'required|numeric',
+            'status' => 'required|in:aktif,nonaktif',
+            'jumlah_siswa' => 'nullable|numeric|min:0',
+            'deskripsi' => 'nullable|string',
+            'cover_kursus' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'vidio_kursus' => 'nullable|mimetypes:video/mp4,video/mpeg,video/quicktime|max:100000',
+        ]);
+
+        // Proses upload file baru jika ada
+        if ($request->hasFile('cover_kursus')) {
+            $coverPath = $request->file('cover_kursus')->store('covers', 'public');
+        } else {
+            $coverPath = $kursus->cover; // gunakan yang lama
+        }
+
+        if ($request->hasFile('vidio_kursus')) {
+            $videoPath = $request->file('vidio_kursus')->store('videos', 'public');
+        } else {
+            $videoPath = $kursus->vidio; // gunakan yang lama
+        }
+
+        // Update data
+        $kursus->update([
+            'instruktur_id' => $request->instruktur_id,
+            'judul_kursus' => $request->judul_kursus,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga_kursus' => $request->harga_kursus,
+            'status' => $request->status,
+            'cover' => $coverPath,
+            'vidio' => $videoPath,
+            'jumlah_siswa' => $request->jumlah_siswa ?? $kursus->jumlah_siswa,
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->route('admin.kursus')->with('success', 'Kursus berhasil diperbarui.');
+    }
+
+
+    // Hapus kursus
+    public function destroyKursus($id)
+    {
+        $kursus = Kursus::findOrFail($id);
+        $kursus->delete();
+
+        return redirect()->route('admin.kursus')->with('success', 'Kursus berhasil dihapus.');
     }
 }

@@ -97,8 +97,8 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
 Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+    // 👥 Pengguna
     Route::get('/pengguna', [AdminController::class, 'listUsers'])->name('admin.users');
-    // Admin - Pengguna
     Route::get('/pengguna/instruktur', [AdminController::class, 'listInstruktur'])->name('admin.users.instruktur');
     Route::get('/pengguna/siswa', [AdminController::class, 'listSiswa'])->name('admin.users.siswa');
 
@@ -111,17 +111,23 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::delete('/instruktur/{id}', [AdminController::class, 'destroyInstruktur'])->name('admin.instruktur.destroy');
 
     // CRUD Siswa
-    Route::get('/pengguna/siswa', [AdminController::class, 'listSiswa'])->name('admin.users.siswa');
     Route::get('/pengguna/siswa/create', [AdminController::class, 'createSiswa'])->name('admin.siswa.create');
     Route::post('/pengguna/siswa', [AdminController::class, 'storeSiswa'])->name('admin.siswa.store');
     Route::get('/pengguna/siswa/edit/{id}', [AdminController::class, 'editSiswa'])->name('admin.siswa.edit');
     Route::put('/pengguna/siswa/update/{id}', [AdminController::class, 'updateSiswa'])->name('admin.siswa.update');
     Route::delete('/pengguna/siswa/delete/{id}', [AdminController::class, 'destroySiswa'])->name('admin.siswa.destroy');
 
-
-
+    // CRUD Kursus (oleh admin)
     Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
+    Route::get('/kursus/create', [AdminController::class, 'createKursus'])->name('admin.kursus.create');
+    Route::post('/kursus', [AdminController::class, 'storeKursus'])->name('admin.kursus.store');
+    Route::get('/kursus/edit/{id}', [AdminController::class, 'editKursus'])->name('admin.kursus.edit');
+    Route::put('/kursus/update/{id}', [AdminController::class, 'updateKursus'])->name('admin.kursus.update');
+    Route::delete('/kursus/delete/{id}', [AdminController::class, 'destroyKursus'])->name('admin.kursus.destroy');
+    Route::get('/kursus/{id}', [AdminController::class, 'showKursus'])->name('admin.kursus.show');
+
 });
+
 
 
 // =====================================================
