@@ -24,19 +24,14 @@
 
         <nav class="flex-1 px-4 py-4 space-y-2">
             <a href="{{ route('siswa.dashboard') }}"
-                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📊
-                <span>Dashboard</span></a>
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📊 Dashboard</a>
             <a href="{{ route('siswa.profil') }}"
-                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">👤 <span>Profil
-                    Siswa</span></a>
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">👤 Profil Siswa</a>
             <a href="{{ route('siswa.kursus') }}"
-                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📚
-                <span>Kursus</span></a>
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📚 Kursus</a>
             <a href="{{ route('siswa.pembayaran') }}"
-                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💳
-                <span>Pembayaran</span></a>
-            <a href="#" class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💬
-                <span>Pesan</span></a>
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💳 Pembayaran</a>
+            <a href="#" class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💬 Pesan</a>
         </nav>
     </aside>
 
@@ -79,10 +74,14 @@
                         <h3 class="text-lg font-semibold text-gray-800 mb-2">Video Kursus</h3>
                         <div class="aspect-video bg-black rounded-lg overflow-hidden">
                             @if ($kursus->vidio)
+                                @php
+                                    $videoPath = \Illuminate\Support\Str::startsWith($kursus->vidio, 'videos/') ? $kursus->vidio : 'videos/' . $kursus->vidio;
+                                @endphp
                                 <video controls class="w-full h-full object-contain bg-black">
-                                    <source src="{{ asset('uploads/videos/' . $kursus->vidio) }}" type="video/mp4">
+                                    <source src="{{ asset('storage/' . $videoPath) }}" type="video/mp4">
                                     Browser Anda tidak mendukung pemutaran video.
                                 </video>
+
                             @else
                                 <div class="flex items-center justify-center h-full">
                                     <p class="text-white text-sm">Belum ada video.</p>
@@ -142,8 +141,11 @@
                 <!-- Kanan: Gambar dan Beli -->
                 <div class="w-80 bg-white rounded-2xl overflow-hidden shadow-lg h-fit">
                     <div class="aspect-[3/2] bg-gray-100">
-                        <img src="{{ $kursus->cover ? asset('uploads/covers/' . $kursus->cover) : asset('images/default-cover.jpg') }}"
-                            alt="Cover Kursus" class="w-full h-full object-contain">
+                        @php
+                            $coverPath = Str::startsWith($kursus->cover, 'covers/') ? $kursus->cover : 'covers/' . $kursus->cover;
+                        @endphp
+                        <img src="{{ asset('storage/' . $coverPath) }}" alt="Cover Kursus"
+                            class="w-full h-full object-contain">
                     </div>
                     <div class="p-4">
                         <h3 class="text-lg font-bold mb-1">{{ $kursus->judul_kursus }}</h3>
@@ -159,31 +161,33 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <!-- Accordion Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const headers = document.querySelectorAll('.accordion-header');
+                headers.forEach(header => {
+                    header.addEventListener('click', () => {
+                        const item = header.closest('.accordion-item');
+                        const content = item.querySelector('.accordion-content');
+                        const icon = header.querySelector('svg');
 
-                <!-- Accordion Script -->
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const headers = document.querySelectorAll('.accordion-header');
-                        headers.forEach(header => {
-                            header.addEventListener('click', () => {
-                                const item = header.closest('.accordion-item');
-                                const content = item.querySelector('.accordion-content');
-                                const icon = header.querySelector('svg');
+                        const isOpen = content.style.display === 'block';
 
-                                const isOpen = content.style.display === 'block';
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+                        document.querySelectorAll('.accordion-item svg').forEach(i => i.classList.remove('rotate-180'));
 
-                                document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
-                                document.querySelectorAll('.accordion-item svg').forEach(i => i.classList.remove('rotate-180'));
-
-                                if (!isOpen) {
-                                    content.style.display = 'block';
-                                    icon.classList.add('rotate-180');
-                                }
-                            });
-                        });
+                        if (!isOpen) {
+                            content.style.display = 'block';
+                            icon.classList.add('rotate-180');
+                        }
                     });
-                </script>
+                });
+            });
+        </script>
+    </div>
 </body>
 
 </html>

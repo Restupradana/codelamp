@@ -130,7 +130,10 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition transform hover:scale-[1.02]">
                         <div class="w-full h-40 bg-gray-100 flex items-center justify-center">
-                            <img src="{{ $k->cover ? asset('uploads/covers/' . $k->cover) : asset('images/default-cover.jpg') }}"
+                            @php
+                                $coverPath = \Illuminate\Support\Str::startsWith($k->cover, 'covers/') ? $k->cover : 'covers/' . $k->cover;
+                            @endphp
+                            <img src="{{ $k->cover ? asset('storage/' . $coverPath) : asset('images/default-cover.jpg') }}"
                                 alt="Cover Kursus" class="max-h-full max-w-full object-contain">
                         </div>
                         <div class="p-4">
