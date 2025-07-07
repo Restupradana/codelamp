@@ -23,6 +23,7 @@
                     $menu = [
                         ['route' => 'instruktur.dashboard', 'label' => 'Dashboard', 'icon' => 'M3 7h18M3 12h18M3 17h18'],
                         ['route' => 'instruktur.profil', 'label' => 'Profil', 'icon' => 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z M12 14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z'],
+                        ['route' => 'chatify', 'label' => 'Chat', 'icon' => 'M5 13h14l-7 7-7-7z'],
                         ['route' => 'instruktur.kursus', 'label' => 'Kursus', 'icon' => 'M9 9h10M9 14h10'],
                         ['route' => 'instruktur.pembayaran', 'label' => 'Pembayaran', 'icon' => 'M12 2L12 14M5 11L12 18L19 11'],
                         ['route' => 'instruktur.pesan', 'label' => 'Pesan', 'icon' => 'M5 13h14l-7 7-7-7z'],

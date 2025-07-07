@@ -30,6 +30,17 @@
                     <span>Dashboard</span>
                 </a>
 
+                <!-- Chat -->
+                <a href="{{ route('chatify') }}"
+                    class="flex items-center gap-3 py-2 px-4 rounded-md hover:bg-gray-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" stroke="#D5D1D1"
+                        viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13h14l-7 7-7-7z" />
+                    </svg>
+                    <span>Chat</span>
+                </a>
+
+
                 <!-- Pengguna (dropdown) -->
                 <div>
                     <button id="penggunaToggle" type="button"

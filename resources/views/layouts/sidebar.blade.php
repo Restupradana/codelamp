@@ -24,6 +24,10 @@
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
                 📊 <span>Dashboard</span>
             </a>
+            <a href="{{ route('chatify') }}"
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
+                💬 <span>Chat</span>
+            </a>
             <a href="{{ route('siswa.profil') }}"
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
                 👤 <span>Profil Siswa</span>

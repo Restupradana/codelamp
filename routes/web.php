@@ -15,9 +15,10 @@ use App\Http\Controllers\InstrukturController;
 |--------------------------------------------------------------------------
 */
 
+// =====================================================
 // 🏠 Halaman Utama
+// =====================================================
 Route::get('/', fn() => view('homepage'))->name('homepage');
-
 
 // =====================================================
 // 🔐 Autentikasi (Login & Register - untuk semua role)
@@ -26,13 +27,11 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
-    // ✍️ Hanya siswa yang bisa registrasi
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
-
 
 // =====================================================
 // 👨‍🎓 Routes untuk Siswa
@@ -49,33 +48,29 @@ Route::prefix('siswa')->middleware(['auth', 'checkRole:siswa'])->group(function 
     Route::get('/profil', [SiswaController::class, 'edit'])->name('siswa.profil');
     Route::put('/profil', [SiswaController::class, 'update'])->name('siswa.profil.update');
 
-    // Halaman Tambahan
+    // Lainnya
     Route::get('/ganti-sandi', fn() => view('siswa.ganti_sandi'))->name('siswa.ganti_sandi');
     Route::get('/dibeli', [SiswaController::class, 'kursusDibeli'])->name('siswa.kursus_dibeli');
     Route::get('/pembayaran', [SiswaController::class, 'catatanPembayaran'])->name('siswa.pembayaran');
-    // Beli Kursus
-    Route::post('/kursus/{id}/beli', [SiswaController::class, 'beliKursus'])->name('siswa.beli.kursus');
 
-    // Form upload bukti pembayaran setelah beli
+    // Pembayaran
     Route::get('/pembayaran/upload/{id}', [SiswaController::class, 'formUploadBukti'])->name('siswa.pembayaran.form');
-
-    // Kirim bukti pembayaran
     Route::post('/pembayaran/upload/{id}', [SiswaController::class, 'uploadBuktiPembayaran'])->name('siswa.pembayaran.upload');
 });
 
-
-
+// =====================================================
 // 🧑‍🏫 Routes untuk Instruktur
+// =====================================================
 Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group(function () {
     Route::get('/dashboard', [InstrukturController::class, 'dashboard'])->name('instruktur.dashboard');
 
-    // Profil dan Halaman Tambahan
+    // Profil
     Route::get('/profil', [InstrukturController::class, 'profil'])->name('instruktur.profil');
     Route::post('/profil', [InstrukturController::class, 'updateProfil'])->name('instruktur.profil.update');
     Route::get('/pembayaran', fn() => view('instruktur.pembayaran'))->name('instruktur.pembayaran');
     Route::get('/pesan', fn() => view('instruktur.pesan'))->name('instruktur.pesan');
 
-    // Manajemen Kursus
+    // Kursus
     Route::get('/kursus', [KursusController::class, 'index'])->name('instruktur.kursus');
     Route::get('/kursus/tambah', [KursusController::class, 'create'])->name('instruktur.kursus.tambah');
     Route::post('/kursus', [KursusController::class, 'store'])->name('instruktur.kursus.store');
@@ -84,12 +79,10 @@ Route::prefix('instruktur')->middleware(['auth', 'checkRole:instruktur'])->group
     Route::delete('/kursus/delete/{id}', [KursusController::class, 'destroy'])->name('instruktur.kursus.destroy');
     Route::get('/kursus/{id}', [KursusController::class, 'show'])->name('instruktur.kursus.show');
 
-    // Materi Kursus
+    // Materi
     Route::get('/kursus/{id}/materi/create', [KursusController::class, 'createMateri'])->name('materi.create');
     Route::post('/kursus/materi', [KursusController::class, 'storeMateri'])->name('materi.store');
 });
-
-
 
 // =====================================================
 // 🧑‍💼 Routes untuk Admin
@@ -117,7 +110,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('/pengguna/siswa/update/{id}', [AdminController::class, 'updateSiswa'])->name('admin.siswa.update');
     Route::delete('/pengguna/siswa/delete/{id}', [AdminController::class, 'destroySiswa'])->name('admin.siswa.destroy');
 
-    // CRUD Kursus (oleh admin)
+    // CRUD Kursus
     Route::get('/kursus', [AdminController::class, 'listKursus'])->name('admin.kursus');
     Route::get('/kursus/create', [AdminController::class, 'createKursus'])->name('admin.kursus.create');
     Route::post('/kursus', [AdminController::class, 'storeKursus'])->name('admin.kursus.store');
@@ -125,15 +118,20 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('/kursus/update/{id}', [AdminController::class, 'updateKursus'])->name('admin.kursus.update');
     Route::delete('/kursus/delete/{id}', [AdminController::class, 'destroyKursus'])->name('admin.kursus.destroy');
     Route::get('/kursus/{id}', [AdminController::class, 'showKursus'])->name('admin.kursus.show');
-
 });
 
-
-
 // =====================================================
-// 🧱 Tambahan dari Laravel Breeze (auth.php)
+// 🧱 Autentikasi Tambahan (Laravel Breeze)
 // =====================================================
 require __DIR__ . '/auth.php';
+
+
+// ✅ Aktifkan Chatify dengan memuat route-nya
+if (file_exists(base_path('routes/chatify/web.php'))) {
+    require base_path('routes/chatify/web.php');
+}
+
+
 
 
 // =====================================================
@@ -143,6 +141,5 @@ Route::fallback(function () {
     if (view()->exists('errors.404')) {
         return response()->view('errors.404', [], 404);
     }
-
     return abort(404, 'Halaman tidak ditemukan.');
 });
