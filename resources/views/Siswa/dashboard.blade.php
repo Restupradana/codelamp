@@ -20,10 +20,6 @@
         <nav class="flex-1 px-4 py-4 space-y-2">
             <a href="{{ route('siswa.dashboard') }}"
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📊 Dashboard</a>
-            <a href="{{ route('chatify') }}"
-                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
-                💬 <span>Chat</span>
-            </a>
             <a href="{{ route('siswa.profil') }}"
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">👤 Profil Siswa</a>
             <a href="{{ route('siswa.kursus') }}"
