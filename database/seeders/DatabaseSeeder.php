@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             KursusSiswaSeeder::class,
             TransaksiSeeder::class,
             InstrukturDetailSeeder::class,
+            UpdateJumlahSiswaSeeder::class,
         ]);
     }
 }

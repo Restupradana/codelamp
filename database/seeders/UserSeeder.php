@@ -5,22 +5,25 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admins
+        // Admin
         User::create([
             'name' => 'Admin Utama',
             'nomor_hp' => '081234567890',
             'role' => 'admin',
             'email' => 'admin@example.com',
+            'avatar' => null,
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
         ]);
 
-        // Instrukturs
+        // Instruktur
         $instrukturs = [
             [
                 'name' => 'Instruktur Satu',
@@ -40,8 +43,10 @@ class UserSeeder extends Seeder
                 'nomor_hp' => $instruktur['nomor_hp'],
                 'role' => 'instruktur',
                 'email' => $instruktur['email'],
+                'avatar' => null,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
             ]);
         }
 
@@ -70,8 +75,10 @@ class UserSeeder extends Seeder
                 'nomor_hp' => $siswa['nomor_hp'],
                 'role' => 'siswa',
                 'email' => $siswa['email'],
+                'avatar' => null,
                 'password' => Hash::make('password'),
                 'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
             ]);
         }
     }
