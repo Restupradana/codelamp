@@ -26,7 +26,7 @@
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">📚 Kursus</a>
             <a href="{{ route('siswa.pembayaran') }}"
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💳 Pembayaran</a>
-            <a href="#" class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💬 Pesan</a>
+            <a href="{{ route('chatify') }}" class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">💬 Pesan</a>
         </nav>
     </aside>
 

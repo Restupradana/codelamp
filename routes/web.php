@@ -125,7 +125,6 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('/kursus/update/{id}', [AdminController::class, 'updateKursus'])->name('admin.kursus.update');
     Route::delete('/kursus/delete/{id}', [AdminController::class, 'destroyKursus'])->name('admin.kursus.destroy');
     Route::get('/kursus/{id}', [AdminController::class, 'showKursus'])->name('admin.kursus.show');
-
 });
 
 
@@ -134,6 +133,21 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
 // 🧱 Tambahan dari Laravel Breeze (auth.php)
 // =====================================================
 require __DIR__ . '/auth.php';
+
+use Chatify\Http\Controllers\MessagesController;
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/chat', [MessagesController::class, 'index'])->name('chat');
+    Route::post('/chat/auth', [MessagesController::class, 'auth']);
+    Route::post('/chat/sendMessage', [MessagesController::class, 'send'])->name('send.message');
+    Route::post('/chat/fetchMessages', [MessagesController::class, 'fetch'])->name('fetch.messages');
+    Route::post('/chat/favorite', [MessagesController::class, 'favorite'])->name('favorite');
+    Route::post('/chat/search', [MessagesController::class, 'search'])->name('search');
+    Route::post('/chat/deleteConversation', [MessagesController::class, 'deleteConversation'])->name('delete.conversation');
+    Route::post('/chat/updateSettings', [MessagesController::class, 'updateSettings'])->name('update.settings');
+    Route::post('/chat/setActiveStatus', [MessagesController::class, 'setActiveStatus']);
+});
+
 
 
 // =====================================================

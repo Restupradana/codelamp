@@ -36,9 +36,11 @@
                 class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
                 💳 <span>Pembayaran</span>
             </a>
-            <a href="" class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
+            <a href="{{ route('chatify') }}"
+                class="flex items-center gap-3 py-2 px-4 rounded-lg transition hover:bg-[#1f1f1f]">
                 💬 <span>Pesan</span>
             </a>
+
         </nav>
     </aside>
 
@@ -50,7 +52,7 @@
 <div class="flex-1">
     <!-- Header -->
     <header class="bg-orange-400 p-4 flex justify-between items-center">
-        <h1 class="text-white text-lg">Kursus</h1>
+        <h1 class="text-white text-lg"></h1>
         <!-- Akun Dropdown -->
         <div class="relative group cursor-pointer">
             <div class="text-white">👤</div>

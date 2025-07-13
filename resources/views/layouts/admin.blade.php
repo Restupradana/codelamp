@@ -75,13 +75,16 @@
                 </a>
 
                 <!-- Pesan -->
-                <a href="#" class="flex items-center gap-3 py-2 px-4 rounded-md hover:bg-gray-700 transition">
+                <a href="{{ route('chatify') }}"
+                    class="flex items-center gap-3 py-2 px-4 rounded-md hover:bg-gray-700 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" stroke="#D5D1D1" fill="none"
                         viewBox="0 0 24 24" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13h14l-7 7-7-7z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2M15 3h-6m6 0v4m0-4l-3 3m3-3l3 3" />
                     </svg>
                     <span>Pesan</span>
                 </a>
+
             </nav>
         </div>
     </aside>

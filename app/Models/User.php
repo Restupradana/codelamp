@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(InstrukturDetail::class, 'user_id');
     }
+
+    public function scopeChatable($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->whereIn('name', ['admin', 'instruktur', 'siswa']);
+        });
+    }
 }
