@@ -134,19 +134,28 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
 // =====================================================
 require __DIR__ . '/auth.php';
 
-use Chatify\Http\Controllers\MessagesController;
+use App\Http\Controllers\ChatController;
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/chat', [MessagesController::class, 'index'])->name('chat');
-    Route::post('/chat/auth', [MessagesController::class, 'auth']);
-    Route::post('/chat/sendMessage', [MessagesController::class, 'send'])->name('send.message');
-    Route::post('/chat/fetchMessages', [MessagesController::class, 'fetch'])->name('fetch.messages');
-    Route::post('/chat/favorite', [MessagesController::class, 'favorite'])->name('favorite');
-    Route::post('/chat/search', [MessagesController::class, 'search'])->name('search');
-    Route::post('/chat/deleteConversation', [MessagesController::class, 'deleteConversation'])->name('delete.conversation');
-    Route::post('/chat/updateSettings', [MessagesController::class, 'updateSettings'])->name('update.settings');
-    Route::post('/chat/setActiveStatus', [MessagesController::class, 'setActiveStatus']);
+Route::middleware('auth')->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+    Route::get('/chat/messages/{user}', [ChatController::class, 'fetchMessages']);
+    Route::post('/chat/send', [ChatController::class, 'sendMessage']);
 });
+
+
+// use Chatify\Http\Controllers\MessagesController;
+
+// Route::group(['middleware' => ['auth']], function () {
+//     Route::get('/chat', [MessagesController::class, 'index'])->name('chat');
+//     Route::post('/chat/auth', [MessagesController::class, 'auth']);
+//     Route::post('/chat/sendMessage', [MessagesController::class, 'send'])->name('send.message');
+//     Route::post('/chat/fetchMessages', [MessagesController::class, 'fetch'])->name('fetch.messages');
+//     Route::post('/chat/favorite', [MessagesController::class, 'favorite'])->name('favorite');
+//     Route::post('/chat/search', [MessagesController::class, 'search'])->name('search');
+//     Route::post('/chat/deleteConversation', [MessagesController::class, 'deleteConversation'])->name('delete.conversation');
+//     Route::post('/chat/updateSettings', [MessagesController::class, 'updateSettings'])->name('update.settings');
+//     Route::post('/chat/setActiveStatus', [MessagesController::class, 'setActiveStatus']);
+// });
 
 
 
